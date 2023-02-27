@@ -9,7 +9,67 @@
 </head>
 <body>
 <script>
+    let operand1 = +prompt("Введите первое число");
+    let operator = prompt("Введите знак арифметической операции");
+    let operand2 = +prompt("Введите второе число");
 
+    function isNaN(value) {
+        return Number.isNaN(Number(value));
+    }
+
+    function isOperatorValid(operator) {
+        switch (operator) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    function createCalc(operand1, operand2, operator) {
+        return {
+            operand1,
+            operand2,
+            operator,
+            add() {
+                return this.operand1 + this.operand2;
+            },
+            subtract() {
+                return this.operand1 - this.operand2;
+            },
+            multiply() {
+                return this.operand1 * this.operand2;
+            },
+            divide() {
+                return this.operand1 / this.operand2;
+            }
+        }
+    }
+
+    function calculate(obj) {
+        switch (obj.operator) {
+            case '+':
+                return obj.add();
+            case '-':
+                return obj.subtract();
+            case '*':
+                return obj.multiply();
+            case '/':
+                return obj.divide();
+        }
+    }
+
+
+    if (isNaN(operand1) || isNaN(operand2) || !isOperatorValid(operator)) {
+        alert('Введено некорретное значение');
+    } else {
+        let calcObj = createCalc(operand1, operand2, operator);
+        let result = calculate(calcObj);
+        alert(`${calcObj.operand1} ${calcObj.operator} ${calcObj.operand2} = ${result}`);
+    }
 
 </script>
 </body>
